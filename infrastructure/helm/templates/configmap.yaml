@@ -1,0 +1,41 @@
+# Main container
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{include "helm-configmap-name" .}}
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    {{- include "helm-label-values.tpl" . | indent 2 }}
+    version: {{ .Values.deploy.version | quote }}
+data:
+  PLATFORM_MODULE_ID: {{ .Values.automation.microserviceName }}
+  PLATFORM_LOG_LEVEL: {{ .Values.configuration.loglevel }}
+  PLATFORM_MODULE_VERSION: {{ .Values.deploy.version | quote }}
+  PLATFORM_MODULE_DOMAIN: {{ .Values.automation.platformDomain }}
+  ENV: {{ .Values.deploy.env }}
+  CREATION_TIMESTAMP: {{ .Values.deploy.creation_timestamp }}
+  SERVERLESS_ROLE_EXECUTION: {{ .Values.deploy.serverless_role_execution }}
+  AWS_TEST_CONNECTION_MAX_RETRIES: {{ .Values.deploy.aws_test_connection_max_retries | quote }}
+---
+# Events sidecar
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{include "helm-configmap-name" .}}-events
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    {{- include "helm-label-values.tpl" . | indent 2 }}
+    version: {{ .Values.deploy.version | quote }}
+data:
+  CATALOG_URL: {{ .Values.events.catalogUrlPrefix }}.{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.events.catalogUrlPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}
+  EVENTS_URL: {{ .Values.events.commonEventUrlPrefix }}.{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.events.commonEventUrlPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}
+  CONFLUENT_SCHEMA_REGISTRY_URL: {{ .Values.events.schemaRegistryUrlPrefix }}.{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.events.schemaRegistryUrlPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}:{{ .Values.events.schemaRegistryUrlPort }}{{ .Values.events.schemaRegistryUrlPath }}
+  ASYNC_RESULT_URL: {{ .Values.events.asyncResultUrlPrefix }}.{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.events.asyncResultUrlPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}
+  SCHEDULER_EVENTS_URL: {{ .Values.events.schedulerEventsUrlPrefix }}.{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.events.schedulerEventsUrlPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}
+  KAFKA_SEND_TIME_WAIT_LIMIT: {{ .Values.events.kafkaSendTimeWaitLimit | quote }}
+  CONSUMER_POLL_MILLIS: {{ .Values.events.consumerPollMillis | quote }}
+  CONSUMER_MAX_POLL_RECORDS: {{ .Values.events.consumerMaxPollRecords | quote }}
+  PLATFORM_CONTAINER_NAME: event-container
+  EVENT_HTTP_THREADS: {{ .Values.events.httpThreads | quote }}

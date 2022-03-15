@@ -1,0 +1,9 @@
+---
+solutionId: NOSECURITY
+solution: NOSECURITY
+profiles:
+- profile: DUMMY_PROFILE
+  territories:
+    - DUMMY_TERRITORY
+  activities:
+    - DUMMY_ACTIVITY

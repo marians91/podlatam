@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "0b5f1e93-c2bc-4412-9a51-825cb6b447e6",
+		"name": "OpenAPI definition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "find By Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e93b41a1-173f-4011-847c-05230c574b39",
+						"exec": [
+							"pm.environment.set(\"baseUrl\", \"localhost:8080\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e5797dd-0d73-408c-ae1d-107deef2d678",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-plt-session-id",
+						"type": "text",
+						"value": "session-1"
+					},
+					{
+						"key": "X-plt-correlation-Id",
+						"type": "text",
+						"value": "correlation-1"
+					},
+					{
+						"key": "X-plt-Solution-User",
+						"type": "text",
+						"value": "superbeat"
+					},
+					{
+						"key": "X-plt-User-Id",
+						"type": "text",
+						"value": "AE00001"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "string",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "default response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"errorMessages\": \"<object>\",\n \"output\": {\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"surname\": \"<string>\"\n }\n}"
+				}
+			]
+		},
+		{
+			"name": "find All",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6bb09688-50cc-4deb-84b7-7b10e4251582",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-plt-session-id",
+						"value": "session-1",
+						"type": "text"
+					},
+					{
+						"key": "X-plt-correlation-Id",
+						"value": "correlation-1",
+						"type": "text"
+					},
+					{
+						"key": "X-plt-Solution-User",
+						"value": "superbeat",
+						"type": "text"
+					},
+					{
+						"key": "X-plt-User-Id",
+						"value": "AE00001",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/?Content-Type=application/json&x-plt-session-id=session-1&X-plt-correlation-Id=correlation-1&X-plt-Solution-User=superbeat&X-plt-User-Id=AE00001",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "x-plt-session-id",
+							"value": "session-1"
+						},
+						{
+							"key": "X-plt-correlation-Id",
+							"value": "correlation-1"
+						},
+						{
+							"key": "X-plt-Solution-User",
+							"value": "superbeat"
+						},
+						{
+							"key": "X-plt-User-Id",
+							"value": "AE00001"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "default response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"errorMessages\": \"<object>\",\n \"output\": [\n  {\n   \"id\": \"<long>\",\n   \"name\": \"<string>\",\n   \"surname\": \"<string>\"\n  },\n  {\n   \"id\": \"<long>\",\n   \"name\": \"<string>\",\n   \"surname\": \"<string>\"\n  }\n ]\n}"
+				}
+			]
+		},
+		{
+			"name": "save",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9469927a-6085-47fa-b5bf-e2ceab9ebf50",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-plt-session-id",
+						"type": "text",
+						"value": "session-1"
+					},
+					{
+						"key": "X-plt-correlation-Id",
+						"type": "text",
+						"value": "correlation-1"
+					},
+					{
+						"key": "X-plt-Solution-User",
+						"type": "text",
+						"value": "superbeat"
+					},
+					{
+						"key": "X-plt-User-Id",
+						"type": "text",
+						"value": "AE00001"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"1\",\n    \"name\": \"Marco\",\n    \"surname\": \"Rossi\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "default response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"surname\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"errorMessages\": \"<object>\",\n \"output\": \"<long>\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "baseUrl",
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

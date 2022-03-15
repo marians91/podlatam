@@ -1,0 +1,15 @@
+release_version: "0.1"
+template: tm003
+versionMajor: 1
+template_version: 0.4
+build:
+  custom_image: false
+  custom_image_version: "0.1"
+  cache:
+    folders: "/home/build-user/.m2/repository"    
+pre_deploy:
+  custom_image: false
+  custom_image_version: "0.1"
+post_deploy:
+  custom_image: false
+  custom_image_version: "0.1"

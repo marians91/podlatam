@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "solutionId": {
+            "type": "string"
+        },
+        "solution": {
+            "type": "string"
+        },
+        "profiles": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "profile": {
+                            "type": "string"
+                        },
+                        "territories": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "activities": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "profile",
+                        "territories",
+                        "activities"
+                    ]
+                }
+            ]
+        }
+    },
+    "required": [
+        "solutionId",
+        "solution",
+        "profiles"
+    ]
+}

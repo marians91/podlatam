@@ -1,0 +1,6 @@
+---
+solutionId: NOSECURITY
+solution: NOSECURITY
+profiles:
+- code: DUMMY_PROFILE
+  description: Dummy profile

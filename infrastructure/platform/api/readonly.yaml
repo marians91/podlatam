@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost/
+  description: ' Default server url'
+paths:
+  /read-only/{id}:
+    get:
+      description: customer retrieving by id
+      operationId: findById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Call has been done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseCustomerDto'
+        500:
+          description: Call hasn't been done
+  /read-only:
+    get:
+      description: customer list retrieving
+      operationId: findAll
+      responses:
+        200:
+          description: Call has been done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseListCustomerDto'
+        500:
+          description: Call hasn't been done
+components:
+  schemas:
+    CustomerDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+    RestResponseCustomerDto:
+      type: object
+      properties:
+        errorMessages:
+          type: object
+          additionalProperties:
+            type: string
+        output:
+          $ref: '#/components/schemas/CustomerDto'
+    RestResponseListCustomerDto:
+      type: object
+      properties:
+        errorMessages:
+          type: object
+          additionalProperties:
+            type: string
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDto'

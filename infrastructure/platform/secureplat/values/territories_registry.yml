@@ -1,0 +1,7 @@
+---
+solutionId: NOSECURITY
+solution: NOSECURITY
+territories:
+- code: DUMMY_TERRITORY
+  description: Dummy Territory
+     

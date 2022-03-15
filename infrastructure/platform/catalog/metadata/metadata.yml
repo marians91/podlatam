@@ -1,0 +1,19 @@
+---
+minHA: No-Gold
+ReleaseNotes: A description relative to the release and eventual bug resolved
+DateDeprecated: null
+DeprecateStart: false
+tags:
+- tag1
+- tag2
+conflLink: "<url_written_from_developer>"
+SLAParameters:
+- nameSla: maxSimultaneousCall
+  value: 10000
+- nameSla: warning-threshold
+  value: 80%
+underlyingAPMS:
+- eventualAPMVirtualEntityCode
+DataGovernanceMetadata: "t.b.d."
+LevelOfInteraction: synch
+Description: Todo

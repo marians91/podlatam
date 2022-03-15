@@ -1,0 +1,6 @@
+solutionId: NOSECURITY
+solution: NOSECURITY
+activities:
+   - code: DUMMY_ACTIVITY
+     description: Dummy Activity 
+  

@@ -1,0 +1,8 @@
+---
+metrics:
+- name: metric1
+  unitOfMeasure: counter
+  description: desc1
+- name: metric2
+  unitOfMeasure: counter
+  description: desc2

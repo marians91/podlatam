@@ -1,0 +1,84 @@
+{
+  "pipeline_structure_dev": {
+    "check_core_security": {
+      "step_name": "check_core_security",
+      "override_release_channel": "latest-stable"
+    },
+    "check_custom_dh": {
+      "step_name": "check_custom_dh",
+      "step_status": "off"
+    },
+    "check_custom_sap": {
+      "step_name": "check_custom_sap",
+      "step_status": "off"
+    },
+    "check_api": {
+      "step_name": "check_api",
+      "step_status": "off"
+    },
+    "check_branch": {
+      "step_name": "check_branch",
+      "step_status": "off"
+    },
+    "deploy_scheduling": {
+      "step_name": "deploy_scheduling",
+      "step_status": "on"
+    },
+    "deploy_on_target": {
+      "step_name": "deploy_on_target",
+      "step_status": "off"
+    },
+    "deploy_resources": {
+      "step_name": "deploy_resources",
+      "step_status": "on",
+      "ecr_uri": "004253270836.dkr.ecr.eu-central-1.amazonaws.com/infr-ap35615-pltfdevcoredepl-dev/microservice-pipeline-automation/platform-dev-deploy-platform:latest-stable"
+    },
+    "deploy_dh": {
+      "step_name": "deploy_dh",
+      "step_status": "off"
+    },
+    "deploy_api": {
+      "step_name": "deploy_api",
+      "step_status": "off"
+    },
+    "testing": {
+      "step_name": "testing",
+      "step_status": "on",
+      "ecr_uri": "004253270836.dkr.ecr.eu-central-1.amazonaws.com/infr-ap0781101-pltfdevtestsrv-dev/microservice-pipeline-automation/deployments_tester:latest-stable"
+    }
+  },
+  "pipeline_structure_no_dev": {
+    "check_core_security": {
+      "step_name": "check_core_security",
+      "step_status": "on",
+      "override_release_channel": "latest-stable"
+    },
+    "deploy_scheduling": {
+      "step_name": "deploy_scheduling_nodev",
+      "step_status": "on"
+    },
+    "deploy_on_target": {
+      "step_name": "deploy_on_target_nodev",
+      "step_status": "off",
+      "ecr_uri": "004253270836.dkr.ecr.eu-central-1.amazonaws.com/infr-ap0781101-pltfnodevtr*-dev/microservice-pipeline-automation/platform-nodev-deploy-target*"
+    },
+    "deploy_resources": {
+      "step_name": "deploy_resources_nodev",
+      "step_status": "on",
+      "ecr_uri": "004253270836.dkr.ecr.eu-central-1.amazonaws.com/infr-ap35615-pltfdevcoredepl-dev/microservice-pipeline-automation/platform-dev-deploy-platform:latest-stable"
+    },
+    "deploy_dh": {
+      "step_name": "deploy_dh",
+      "step_status": "off"
+    },
+    "deploy_api": {
+      "step_name": "deploy_api_nodev",
+      "step_status": "off"
+    },
+    "testing": {
+      "step_name": "testing",
+      "step_status": "on",
+      "ecr_uri": "004253270836.dkr.ecr.eu-central-1.amazonaws.com/infr-ap0781101-pltfdevtestsrv-dev/microservice-pipeline-automation/deployments_tester:latest-stable"
+    }
+  }
+}

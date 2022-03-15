@@ -1,0 +1,65 @@
+Environment:
+    Description: An identifier for the environment. Use value already set in the config
+    Type: String
+  DynamoDBReadCapacity:
+    Description: The read capacity for DynamoDB table
+    Type: Number
+  DynamoDBWriteCapacity:
+    Description: The write capacity for DynamoDB table
+    Type: Number
+  DestinationAwsAccountId:  
+    Description:  AWS Account ID of the data virtualization layer
+    Type: String
+    
+Conditions:
+  Never: !Equals [ a, b ]
+
+Resources:
+
+  #NullResource:
+  #  Type: Custom::Null
+  #  Condition: Never
+    
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:                             
+      BucketName: !Sub 'enel-${Environment}-glin-ap31312mp01933-lan-mepodlatam-cold-area' 
+   
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Sub 'enel-${Environment}-glin-ap31312ap31312mp01933-lan-mepodlatam-cold-area'
+      PolicyDocument:
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": [
+                    !Sub "arn:aws:iam::${DestinationAwsAccountId}:root"
+                ]
+              },
+              "Action": "s3:*",
+              "Resource": [
+                  !Sub 'arn:aws:s3:::enel-${Environment}-glin-ap31312mp01933-lan-mepodlatam-cold-area',
+                  !Sub 'arn:aws:s3:::enel-${Environment}-glin-ap31312mp01933-lan-mepodlatam-cold-area/*'
+              ]
+            }
+          ]
+        }      
+
+  DynamoDBBatchTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "entityName"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "entityName"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref DynamoDBReadCapacity
+        WriteCapacityUnits: !Ref DynamoDBWriteCapacity
+      TableName: !Sub "glin_ap31312mp01933_${Environment}_ddb_mepodlatam_increment_handler"

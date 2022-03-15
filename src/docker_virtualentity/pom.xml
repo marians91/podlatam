@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.enel.platform</groupId>
+	<artifactId>mepodlatam</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	<name>Mepodlatam</name>
+	<description>Project for POD Latam</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.3</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<!-- Required section -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<java.version>11</java.version>
+		<mockito.version>3.7.7</mockito.version>
+		<artifactory.url>https://artifactory.springlab.enel.com/artifactory</artifactory.url>
+		<java-platform-sdk.version>1.5</java-platform-sdk.version>
+		<io.github.classgraph.version>4.8.61</io.github.classgraph.version>
+		<springdoc.openapi.version>1.3.0</springdoc.openapi.version>
+		<springdoc.openapi.maven.plugin.version>1.0</springdoc.openapi.maven.plugin.version>
+		<entity.batch.sdk.version>0.25.0</entity.batch.sdk.version>
+		<reflection.version>0.10.2</reflection.version>
+		<jdbi.version>3.9.1</jdbi.version>
+		<aws.java.sdk.version>1.11.792</aws.java.sdk.version>
+		<version.guava>24.1.1-jre</version.guava>
+		<!-- /Required section -->
+	</properties>
+
+	<dependencies>
+		<!-- Required section -->
+		<dependency>
+			<groupId>com.enel.platform.batch</groupId>
+			<artifactId>entity-sdk-core</artifactId>
+			<version>${entity.batch.sdk.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+
+		<!-- AWS Security -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-secretsmanager</artifactId>
+			<version>1.11.704</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sts</artifactId>
+			<version>1.11.704</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.704</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+			<version>1.11.704</version>
+		</dependency>
+
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.enel.platform</groupId>
+			<artifactId>java-platform-sdk-microservice-springboot</artifactId>
+			<version>${java-platform-sdk.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.openapi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>${reflection.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi3-spring4</artifactId>
+			<version>${jdbi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi3-sqlobject</artifactId>
+			<version>${jdbi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${version.guava}</version>
+		</dependency>
+
+	</dependencies>
+
+	<repositories>
+		<!-- Required section -->
+		<repository>
+			<id>enel-artifactory</id>
+			<url>${artifactory.url}/enel/</url>
+		</repository>
+		<repository>
+			<id>enel-artifactory-snapshot</id>
+			<url>${artifactory.url}/enel-snapshot/</url>
+		</repository>
+		<!-- /Required section -->
+	</repositories>
+
+	<build>
+		<plugins>
+			<!-- Required section -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- attached to Maven test phase -->
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>com/enel/platform/mepodlatam/VirtualEntityApplication.class</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/repository/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/conf/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/log/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/s3/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/filters/application/exception/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/batch/filters/application/mapping/exception/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/conf/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/model/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/openapi/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/secret/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/model/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/dto/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/controller/support/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/exception/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/constants/**</exclude>
+								<exclude>com/enel/platform/mepodlatam/util/**</exclude>
+							</excludes>
+							<outputDirectory>target/jacocoreport</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.1</version>
+				<configuration>
+					<environmentVariables>
+						<ENV_MODE>TEST</ENV_MODE>
+						<PLATFORM_CONTAINER_NAME>unitTestMainContainer</PLATFORM_CONTAINER_NAME>
+						<PLATFORM_MODULE_DOMAIN>INDWorkOrd</PLATFORM_MODULE_DOMAIN>
+						<PLATFORM_MODULE_ID>mepodlatam</PLATFORM_MODULE_ID>
+						<PLATFORM_MODULE_VERSION>1.0-test</PLATFORM_MODULE_VERSION>
+						<PLATFORM_LOG_LEVEL>DEBUG</PLATFORM_LOG_LEVEL>
+						<PLATFORM_NAMESPACE>ap31312mp01744</PLATFORM_NAMESPACE>
+					</environmentVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>uk.ac.ebi.uniprot</groupId>
+				<artifactId>openapi-maven-plugin</artifactId>
+				<version>0.3</version>
+				<configuration>
+					<packageLocations>
+						<packageLocation>com.enel.platform.mepodlatam.batch.controller</packageLocation>
+					</packageLocations>
+					<openApiDirectory>${project.basedir}/../../infrastructure/platform/api</openApiDirectory>
+					<openApiFileName>openapi.yaml</openApiFileName>
+					<serverBaseUrl>http://localhost/</serverBaseUrl>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>oas-generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>enforce-banned-dependencies</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<bannedDependencies>
+									<excludes combine.children="append">
+										<exclude>org.apache.logging.log4j:log4j-core:(,2.17.1)</exclude>
+									</excludes>
+								</bannedDependencies>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- /Required section -->
+		</plugins>
+	</build>
+
+</project>

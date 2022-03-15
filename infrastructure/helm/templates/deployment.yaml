@@ -1,0 +1,94 @@
+{{/* VARIABLE SECTION */}}
+{{- $component_versioned := (( list .Values.automation.microserviceName .Values.deploy.version | join "-" | replace "." "-" | replace "_" "-" | lower )) }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $component_versioned }}
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    {{- include "helm-label-values.tpl" . | indent 2 }}
+    version: {{ .Values.deploy.version | quote }}
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "helm-label-values.tpl" . | indent 4 }}
+      version: {{ .Values.deploy.version | quote }}
+  template:
+    metadata:
+      labels:
+        {{- include "helm-label-values.tpl" . | indent 6 }}
+        version: {{ .Values.deploy.version | quote }}
+    spec:
+      volumes:
+        - name: shared-log
+          emptyDir: {}
+      containers:
+      # Main App
+      - name: {{ .Values.automation.microserviceName | quote }}
+        image: {{ .Values.automation.ecrPrefix }}/{{ .Values.automation.imagePrefix }}/{{ .Values.automation.imageSuffix }}/{{ .Values.developer.imageName }}:{{ .Values.deploy.version }}
+        env:
+        - name: PLATFORM_CONTAINER_NAME
+          value: {{ .Values.automation.microserviceName | quote }}
+        - name: PLATFORM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        envFrom:
+        - configMapRef:
+            name: {{include "helm-configmap-name" .}}
+        volumeMounts:
+        - name: shared-log
+          mountPath: /var/log/platform
+        {{- include "helm-pod-configuration.tpl" . | indent 6 }}
+      # Sidecars
+      - name: fluentbit
+        image: {{ .Values.automation.commonServiceEcrPrefix }}/{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.developer.fluentbitImage }}
+        env:
+        - name: PLATFORM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: FLUENTD_HOST
+          value: {{ .Values.sidecar.fluentdHostPrefix }}
+        - name: FLUENTD_NAMESPACE
+          value: {{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.sidecar.fluentdHostPostfix }}-{{ .Values.deploy.env }}-{{ .Values.developer.urlPostfix }}
+        envFrom:
+        - configMapRef:
+            name: {{include "helm-configmap-name" .}}
+        volumeMounts:
+        - name: shared-log
+          mountPath: /var/log/platform
+        resources:
+          requests:
+            memory: "0.04Gi"
+            cpu: "0.05"
+          limits:
+            memory: "0.4Gi"
+            cpu: "0.2"
+      - name: events-sidecar
+        image: {{ .Values.automation.commonServiceEcrPrefix }}/{{ .Values.deploy.sc }}-{{ .Values.deploy.apm_code }}{{ .Values.developer.eventSdkImage }}
+        env:
+        - name: PLATFORM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        envFrom:
+        - configMapRef:
+            name: {{include "helm-configmap-name" .}}
+        - configMapRef:
+            name: {{include "helm-configmap-name" .}}-events
+        volumeMounts:
+        - name: shared-log
+          mountPath: /var/log/platform
+        resources:
+          requests:
+            memory: {{ .Values.events.requestMemory }}
+            cpu: {{ .Values.events.requestCpu }}
+          limits:
+            memory: {{ .Values.events.limitMemory }}
+            cpu: {{ .Values.events.limitCpu }}

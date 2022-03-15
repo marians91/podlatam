@@ -1,0 +1,95 @@
+id:
+  providerName: admin
+  apiName: $API_NAME
+  version: $API_VERSION
+description: 'Echo MS endpoint is POST http://mepodlatam.glin-ap31312mp01933-dev-platform-namespace:80/'
+type: HTTP
+context: /$API_DOMAIN/$API_NAME/$API_VERSION
+contextTemplate: /$API_DOMAIN/$API_NAME/{version}
+productionUrl: $APIPRODURL
+sandboxUrl: $APIPRODURL
+isDefaultVersion: true
+isPublishedDefaultVersion: true
+
+tags:
+- INDWorkOrd
+- mepodlatam
+- microservice
+
+
+# Additional properties of API as key:value pairs. Use as many as you want, they can be used to look-up
+additionalProperties:
+   gias_id: ap31312mp01933
+   component: mepodlatam
+
+#tags:
+# - pizza
+#documents: []
+availableTiers:
+  - name: MicroserviceSubscriptionTier
+#availableTiers:
+# -
+#  name: Unlimited
+#  displayName: Unlimited
+#  description: Allows unlimited requests
+#  requestsPerMin: 2147483647
+#  requestCount: 2147483647
+#  unitTime: 0
+#  timeUnit: ms
+#  tierPlan: FREE
+#  stopOnQuotaReached: true
+#availableSubscriptionLevelPolicies: []
+# apiLevelPolicy: Unlimited
+#uriTemplates: []
+#apiHeaderChanged: false
+#apiResourcePatternsChanged: false
+status: PUBLISHED
+#technicalOwner: John Doe
+#technicalOwnerEmail: architecture@pizzashack.com
+#businessOwner: Jane Roe
+#businessOwnerEmail: marketing@pizzashack.com
+visibility: public
+#gatewayLabels: []
+#endpointSecured: false
+#endpointAuthDigest: false
+#transports: http,https
+#advertiseOnly: false
+#subscriptionAvailability: all_tenants
+#corsConfiguration:
+#  corsConfigurationEnabled: false
+#  accessControlAllowOrigins:
+#   - '*'
+#  accessControlAllowCredentials: false
+#  accessControlAllowHeaders:
+#   - authorization
+#   - Access-Control-Allow-Origin
+#   - Content-Type
+#   - SOAPAction
+#  accessControlAllowMethods:
+#   - GET
+#   - PUT
+#   - POST
+#   - DELETE
+#   - PATCH
+#   - OPTIONS
+#endpointConfig: '{"endpoint_type":"http","sandbox_endpoints":{"url":"https://localhost:9443/am/sample/pizzashack/v1/api/"},"production_endpoints":{"url":"https://localhost:9443/am/sample/pizzashack/v1/api/"}}'
+#responseCache: Disabled
+#cacheTimeout: 300
+#implementation: ENDPOINT
+#authorizationHeader: Authorization
+#scopes: []
+#environments:
+# - Production and Sandbox
+#createdTime: "1580729126308"
+#additionalProperties: {}
+#monetizationProperties: {}
+#isMonetizationEnabled: false
+#environmentList:
+# - SANDBOX
+# - PRODUCTION
+#apiSecurity: oauth2,oauth_basic_auth_api_key_mandatory
+#endpoints: []
+#enableSchemaValidation: false
+#accessControl: all
+#rating: 0.0
+isLatest: true

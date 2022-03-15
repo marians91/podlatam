@@ -1,0 +1,48 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost/
+  description: ' Default server url'
+paths:
+  /read-write:
+    post:
+      description: customer saving
+      operationId: save
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+      responses:
+        200:
+          description: Call has been done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseLong'
+        500:
+          description: Call hasn't been done
+components:
+  schemas:
+    CustomerDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+    RestResponseLong:
+      type: object
+      properties:
+        errorMessages:
+          type: object
+          additionalProperties:
+            type: string
+        output:
+          type: integer
+          format: int64

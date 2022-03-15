@@ -1,0 +1,8 @@
+- ParameterKey: "Environment"
+  ParameterValue: "qa"
+- ParameterKey: "DynamoDBReadCapacity"
+  ParameterValue: 2
+- ParameterKey: "DynamoDBWriteCapacity"
+  ParameterValue: 2
+- ParameterKey: "DestinationAwsAccountId"
+  ParameterValue: "345567989304"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.automation.microserviceName | quote }}
+  labels:
+    {{- include "helm-label-values.tpl" . | indent 4 }}
+spec:
+  selector:
+    {{- include "helm-label-values.tpl" . | indent 2 }}
+  ports:
+    - port: {{ .Values.service.ports.servicePort }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+      protocol: {{.Values.service.ports.protocol | quote }}
+      name: http
+  type: {{ .Values.service.type }}

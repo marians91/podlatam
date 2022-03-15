@@ -1,0 +1,42 @@
+# DO NOT remove or modify the following rows
+
+automation:
+  platformDomain: INDWorkOrd
+  microserviceName: mepodlatam
+  awsAccount: "681174394402"
+  awsRegion: eu-central-1
+  sc: glin
+  giasId: ap31312mp01933
+  dashComponent: -mepodlatam
+  netType: lan
+  ecrPrefix: 681174394402.dkr.ecr.eu-central-1.amazonaws.com
+  commonServiceEcrPrefix: 696162764334.dkr.ecr.eu-central-1.amazonaws.com
+  imagePrefix: glin-ap31312mp01933-mepodlatam-lan-dev
+  imageSuffix: platform-automation
+
+developer:
+  fluentbitImage: plcpfbt-cpfbt-lan-dev/platform-automation/docker_fluentbit:0.9
+  eventSdkImage: plcpevn-cpevn-lan-dev/platform-automation/docker_container:0.21
+  imageName: docker_virtualentity
+  urlPostfix: platform-namespace
+
+sidecar:
+  fluentdHostPrefix: logaggreg
+  fluentdHostPostfix: plcpfld
+
+events:
+  catalogUrlPrefix: catalog
+  catalogUrlPostfix: plmcatc
+  commonEventUrlPrefix: events-dispatcher
+  commonEventUrlPostfix: plmevnt
+  schemaRegistryUrlPrefix: rest
+  schemaRegistryUrlPostfix: plcpksr
+  schemaRegistryUrlPort: 80
+  schemaRegistryUrlPath: /schemas/ids
+  asyncResultUrlPrefix: result-mresc
+  asyncResultUrlPostfix: plmresc
+  schedulerEventsUrlPrefix: cpevs
+  schedulerEventsUrlPostfix: plcpevs
+
+commonServices:
+  clusterDNSsuffix: svc.cluster.local
